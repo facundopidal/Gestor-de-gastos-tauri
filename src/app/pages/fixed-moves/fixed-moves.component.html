@@ -1,0 +1,102 @@
+<div class="container">
+    <div class="list">
+        <h3>Movimientos Periódicos</h3>
+        <ul>
+            @for (fixedMove of fixedMoves; track $index) {
+            @if($index < 10) { 
+                <li [class.ingreso]="fixedMove.tipo === 'Ingreso'"
+                    [class.gasto]="fixedMove.tipo === 'Gasto'">
+
+                    <div class="fixed-move-card">
+                        <div class="card-header">
+                          <div class="icon-container">
+                            <img [src]="categoryImages[fixedMove.rubro] || defaultIcon" alt="Icono Rubro" class="icon">
+                          </div>
+                          <div class="move-info">
+                            <h3 class="move-title">{{ fixedMove.nombre }}</h3>
+                            <p class="move-category">{{ fixedMove.rubro.charAt(0).toUpperCase() + fixedMove.rubro.slice(1)  }}</p>
+                          </div>
+                        </div>
+                      
+                        <div class="card-body">
+                          <p class="description">{{ fixedMove.descripcion }}</p>
+                          <div class="amount {{ fixedMove.tipo === 'Ingreso' ? 'ingreso' : 'gasto' }}">
+                            {{ fixedMove.tipo === 'Ingreso' ? '+' : '-' }} ${{ fixedMove.monto }}
+                          </div>
+                        </div>
+                      
+                        <div class="card-footer">
+                            <div class="dates">
+                                <p>Frecuencia {{fixedMove.frecuencia}} </p>
+                                <p class="next-date">Próxima Fecha: {{ formatDate(fixedMove.proxima_aplicacion.toString()) }}</p>
+                                @if(fixedMove.ultima_aplicacion) {
+                                    <p class="next-date">Última Aplicación: {{ formatDate(fixedMove.ultima_aplicacion!.toString()) }}</p>
+                                }
+                            </div>
+                          <div class="card-actions">
+                            <button class="edit-btn" (click)="editFixedMove(fixedMove)">✏️ Editar</button>
+                            <button class="delete-btn" (click)="deleteFixedMove(fixedMove)">🗑️ Eliminar</button>
+                          </div>
+                        </div>
+                      </div>
+                      
+                </li>
+                }
+                } @empty {
+                <li>No hay movimientos periódicos</li>
+                }
+        </ul>
+    </div>
+
+    <div class="new-fixed-move">
+        <div>
+            <h3>Agregar Movimiento Periódico</h3>
+            <label for="tipo">Tipo:</label>
+            <select id="tipo" #tipo>
+                <option value="Ingreso">Ingreso</option>
+                <option value="Gasto">Gasto</option>
+            </select>
+            @if (tipoError) {
+            <div class="error">Seleccione un tipo.</div>
+            }
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" #nombre />
+            @if (nombreError) {
+            <div class="error">Ingrese un nombre.</div>
+            }
+            <label for="descripcion">Descripción:</label>
+            <input type="text" id="descripcion" #descripcion />
+            @if (descripcionError) {
+            <div class="error">Ingrese una descripción.</div>
+            }
+            <label for="monto">Monto:</label>
+            <input type="number" id="monto" #monto />
+            @if (montoError) {
+            <div class="error">Ingrese un monto válido.</div>
+            }
+            <label for="">Rubro</label>
+            <select id="rubro" #rubro>
+                <option disabled selected>Seleccione un rubro</option>
+                @for(cat of categories; track $index) {
+                <option value="{{cat}}">{{cat.charAt(0).toUpperCase() + cat.slice(1)}}</option>
+                }
+            </select>
+            @if (rubroError) {
+            <div class="error">Seleccione un rubro.</div>
+            }
+            <label for="">Frecuencia</label>
+            <select id="" #frecuencia>
+                <option value="diaria">Diaria</option>
+                <option value="semanal">Semanal</option>
+                <option value="mensual">Mensual</option>
+            </select>
+            <label for="">Primera aplicacion</label>
+            <input type="date" id="fecha" #fecha />
+            @if (fechaError) {
+            <div class="error">Seleccione una fecha válida.</div>
+            }
+            <button class="btn"
+                (click)="validateForm(tipo.value, nombre.value, descripcion.value, +monto.value, rubro.value, frecuencia.value, fecha.value)">Agregar</button>
+        </div>
+    </div>
+</div>

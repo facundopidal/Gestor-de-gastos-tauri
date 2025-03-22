@@ -1,0 +1,209 @@
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --background-color: #e8e9ea;
+    --text-color: #212529;
+  }
+  
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  .container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  h1,
+  h2,
+  h3 {
+    margin: 0 0 15px;
+    font-family: system-ui, -apple-system;
+  }
+
+  li {
+    list-style: none;
+  }
+  
+  .icon {
+    border-radius: 6px;
+    border: none;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .btn.primary {
+    background-color: #0056b3;
+    color: white;
+  }
+  
+  .btn.secondary {
+    background-color: #888;
+    color: white;
+  }
+  
+/* Lista de Movimientos */
+
+.movimientos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movements-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movement-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+  transition: transform 0.2s ease;
+}
+
+.movement-card:hover {
+  transform: translateY(-2px);
+}
+
+.movement-card.ingreso {
+  border-left: 4px solid #4caf50;
+}
+
+.movement-card.gasto {
+  border-left: 4px solid #f44336;
+}
+
+/* Icono del Rubro */
+.movement-icon {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: #f4f4f4;
+  margin-right: 1rem;
+}
+
+.movement-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Información Principal */
+.movement-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.movement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.movement-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.movement-date {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.movement-description {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Monto y Acciones */
+.movement-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.movement-amount {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.movement-amount.negative {
+  color: #f44336;
+}
+
+.movement-amount.positive {
+  color: #4caf50;
+}
+
+.movement-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.movement-buttons .icon {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.movement-buttons .icon:hover {
+  transform: scale(1.2);
+}
+
+.movement-buttons .icon.edit {
+  color: #2196f3;
+}
+
+.movement-buttons .icon.delete {
+  color: #f44336;
+}
+  
+  .nuevo-movimiento label {
+    display: block;
+    margin-top: 10px;
+  }
+  
+  .nuevo-movimiento input,
+  .nuevo-movimiento select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  button[disabled] {
+    cursor: not-allowed;
+  }

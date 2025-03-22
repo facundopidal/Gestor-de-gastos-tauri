@@ -1,0 +1,26 @@
+<div class="modal">
+    <div class="modal-content">
+        <h2>Editar Movimiento</h2>
+        <form [formGroup]="editForm" (ngSubmit)="updateMovement(tipo.value, nombre.value, descripcion.value, +monto.value, rubro.value, fecha.value)" class="nuevo-movimiento">
+            <label for="">Tipo</label>
+            <select type="text" formControlName="tipo" #tipo>
+                <option value="Ingreso">Ingreso</option> 
+                <option value="Gasto">Gasto</option> 
+            </select>
+            <label for="">Nombre</label><input type="text" id="" #nombre formControlName="nombre">
+            <label for="">Descripcion</label><input type="text" formControlName="descripcion" #descripcion>
+            <label for="">Monto</label><input type="number" formControlName="monto" #monto value="monto.value.toLocaleString('es-ES')">
+            <label for="">Rubro</label>
+            <select name="" id="" #rubro>
+                @for(cat of categories; track $index) {
+                <option value="{{cat}}">{{cat.charAt(0).toUpperCase() + cat.slice(1)}}</option>
+                }
+            </select>
+            <label for="">Fecha</label><input type="text" formControlName="fecha" #fecha [class.error]="!stringToDate(fecha.value)">
+            <div class="modal-actions">
+                <button type="submit" class="btn primary">Aceptar</button>
+                <button type="button" class="btn secondary" (click)="closeModal()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div> 

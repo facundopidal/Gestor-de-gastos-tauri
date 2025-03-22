@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="categories">
+        <h3>Rubros</h3>
+        <ul>
+            @for (cat of categories; track $index) {
+                <li>
+                    <img [src]="categoryImages[cat] || './assets/varios.png'" alt="Rubro Icono" />
+                    {{ cat.charAt(0).toUpperCase() + cat.slice(1) }}
+                </li>
+            }
+        </ul>
+    </div>
+    <div class="add-categories">
+        <h3>Agregar Rubro</h3>
+        <input type="text" id="nombre" #nombre />
+        <input type="file" #imagen accept="image/png">
+        <button class="btn primary" (click)="addCategory(nombre.value, imagen)">Agregar</button>
+    </div>
+</div>

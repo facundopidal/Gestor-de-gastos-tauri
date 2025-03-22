@@ -1,0 +1,9 @@
+<div class="modal">
+    <div class="modal-content">
+        <p>{{confirmationMessage}}</p>
+        <div class="modal-actions">
+            <button (click)="handleClick($any($event.target).innerHTML)">Si</button>
+            <button (click)="handleClick($any($event.target).innerHTML)">No</button>
+        </div>
+    </div>
+</div>

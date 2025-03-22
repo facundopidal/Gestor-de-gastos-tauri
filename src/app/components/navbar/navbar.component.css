@@ -1,0 +1,41 @@
+.navbar-container {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar {
+    width: 90%;
+    max-width: 600px;
+    background-color: #5d9a9e;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    margin: 0 auto;
+    border-radius: 15px;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px;
+}   
+
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+    font-family: system-ui, -apple-system; 
+}
+
+a:hover {
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.hidden {
+    z-index: 0;
+}
