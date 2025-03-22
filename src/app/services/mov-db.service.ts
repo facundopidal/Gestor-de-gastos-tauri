@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import Database from '@tauri-apps/plugin-sql';
 import { Movimiento } from '../interfaces/Movement';
 import { addDays, addMonths, dateToSQL } from '../utils/dates';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,13 @@ import { addDays, addMonths, dateToSQL } from '../utils/dates';
 export class MovDbService {
 
   private db!: Database;
+  private movementUpdatedSubject = new Subject<{ month: string; year: string }>();
 
   constructor() { }
+
+  get movementUpdated$() {
+    return this.movementUpdatedSubject.asObservable();
+  }
 
   async initDatabase() {
     this.db = await Database.load('sqlite:movements.db');
@@ -159,6 +165,8 @@ export class MovDbService {
 
   async applyFixedMovements() {
     const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const fixedMovements = await this.getFixedMovements();
     for (const mov of fixedMovements) {
       if (mov.proxima_aplicacion <= today) {
@@ -172,16 +180,10 @@ export class MovDbService {
         else if (mov.frecuencia === 'mensual') nuevaFecha = addMonths(mov.proxima_aplicacion, 1);
         else console.error('Error: Frecuencia inexistente')
 
-        await this.updateFixedMovement(
-          mov.id,
-          mov.tipo,
-          mov.nombre,
-          mov.descripcion,
-          mov.monto,
-          mov.frecuencia,
-          nuevaFecha!,
-          mov.rubro
-        );
+        await this.db.execute(
+          'UPDATE movimientos_fijos SET proxima_aplicacion = $1, ultima_aplicacion = $2 WHERE id = $3',
+          [dateToSQL(nuevaFecha!), dateToSQL(today), mov.id]
+        )
       }
     }
   }
@@ -286,6 +288,9 @@ export class MovDbService {
       `UPDATE movimientos SET tipo = $1, nombre = $2, descripcion = $3, monto = $4, fecha = $5, id_rubro = $6 WHERE id = $7`,
       [tipo, nombre, descripcion, monto, fechaF, idRubro, id]
     );
+    const month = fechaF.slice(5, 7);
+    const year = fechaF.slice(0, 4);
+    this.movementUpdatedSubject.next({ month, year });
   }
 
   async updateSaldo(amount: number): Promise<void> {
