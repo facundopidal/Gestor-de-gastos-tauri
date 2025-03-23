@@ -4,8 +4,13 @@
         <ul>
             @for (cat of categories; track $index) {
                 <li>
-                    <img [src]="categoryImages[cat] || './assets/varios.png'" alt="Rubro Icono" />
-                    {{ cat.charAt(0).toUpperCase() + cat.slice(1) }}
+                    <span class="category">
+                        <img [src]="categoryImages[cat] || './assets/varios.png'" alt="Rubro Icono" />
+                        {{ cat.charAt(0).toUpperCase() + cat.slice(1) }}
+                    </span>
+                    <span class="actions">
+                        <button class="icon edit" (click)="editCategory(cat)">✏️</button>
+                    </span>
                 </li>
             }
         </ul>

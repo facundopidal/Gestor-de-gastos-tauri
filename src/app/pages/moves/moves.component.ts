@@ -39,6 +39,7 @@ export class MovesComponent implements OnInit{
       this.categories = await this.dbService.getCategoryNames()
       await this.loadCategoryImages()
     }).catch(e => console.error(e))
+    this.movements.push({ tipo: 'ingreso', nombre: 'Salario', descripcion: 'Pago de nómina', monto: 1000, rubro: 'Salario', fecha: new Date() })
   }
 
   setMonth(newMonth: any) {

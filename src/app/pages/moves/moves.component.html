@@ -1,92 +1,89 @@
 <div class="container">
 
-    <div class="movimientos">
-        <ul>
-            <fieldset>
-                <div class="movimientos-header">
-                    <h3>Movimientos</h3>
-                    <input type="month" [(ngModel)]="selectedMonth" (change)="setMonth($any($event.target).value)">
-                </div>
-                @for (mov of movements; track $index) {
-                @if($index < 10 || viewMoves) {
-                     <li [class.ingreso]="mov.tipo === 'Ingreso'" 
-                     [class.gasto]="mov.tipo === 'Gasto'"
-                     title="{{ mov.rubro.charAt(0).toUpperCase() + mov.rubro.slice(1) }}">
-                     
-                   <div class="movement-card">
-                     <!-- Icono del Rubro -->
-                     <div class="movement-icon">
-                       <img [src]="categoryImages[mov.rubro]" alt="{{mov.rubro}}"/>
-                     </div>
-               
-                     <!-- Información Principal -->
-                     <div class="movement-info">
-                       <div class="movement-header">
-                         <span class="movement-name">{{ mov.nombre }}</span>
-                         <span class="movement-date">{{ formatDate(mov.fecha!.toString()) }}</span>
-                       </div>
-                       <div class="movement-description">{{ mov.descripcion }}</div>
-                     </div>
-               
-                     <!-- Monto y Acciones -->
-                     <div class="movement-actions">
-                       <span class="movement-amount" [class.negative]="mov.tipo === 'Gasto'" [class.positive]="mov.tipo === 'Ingreso'">
-                         {{ mov.tipo === 'Gasto' ? '-' : '+' }} ${{ mov.monto.toLocaleString('es-ES') }}
-                       </span>
-                       <div class="movement-buttons">
-                         <button class="icon edit" (click)="toggleEditModal(); editId = mov.id">✏️</button>
-                         <button class="icon delete" (click)="handleClickDelete(mov.id!)">🗑️</button>
-                       </div>
-                     </div>
-                   </div>
-                    </li>
-                    }
-                    } @empty {
-                    <li>No hay movimientos.</li>
-                    }
+  <div class="movimientos">
+    <ul>
+      <div class="movimientos-header">
+        <h3>Movimientos</h3>
+        <input type="month" [(ngModel)]="selectedMonth" (change)="setMonth($any($event.target).value)">
+      </div>
+      @for (mov of movements; track $index) {
+      @if($index < 10 || viewMoves) { <li [class.ingreso]="mov.tipo === 'Ingreso'" [class.gasto]="mov.tipo === 'Gasto'"
+        title="{{ mov.rubro.charAt(0).toUpperCase() + mov.rubro.slice(1) }}">
 
+        <div class="movement-card">
+          <!-- Icono del Rubro -->
+          <div class="movement-icon">
+            <img [src]="categoryImages[mov.rubro]" alt="{{mov.rubro}}" />
+          </div>
 
-            </fieldset>
-        </ul>
-        @if(deleteConfirmation) {
-        <app-confirm-modal [confirmationMessage]='confirmationMessage'
-            (confirmationEvent)="$event ? deleteMovement() : toggleDeleteConfirmation()" />
+          <!-- Información Principal -->
+          <div class="movement-info">
+            <div class="movement-header">
+              <span class="movement-name">{{ mov.nombre }}</span>
+              <span class="movement-date">{{ formatDate(mov.fecha!.toString()) }}</span>
+            </div>
+            <div class="movement-description">{{ mov.descripcion }}</div>
+          </div>
+
+          <!-- Monto y Acciones -->
+          <div class="movement-actions">
+            <span class="movement-amount" [class.negative]="mov.tipo === 'Gasto'"
+              [class.positive]="mov.tipo === 'Ingreso'">
+              {{ mov.tipo === 'Gasto' ? '-' : '+' }} ${{ mov.monto.toLocaleString('es-ES') }}
+            </span>
+            <div class="movement-buttons">
+              <button class="icon edit" (click)="toggleEditModal(); editId = mov.id">✏️</button>
+              <button class="icon delete" (click)="handleClickDelete(mov.id!)">🗑️</button>
+            </div>
+          </div>
+        </div>
+        </li>
+        }
+        } @empty {
+        <li>No hay movimientos.</li>
         }
 
         @if(movements.length > 10) {
-        <button class="btn" (click)="viewMoves = !viewMoves">{{ !viewMoves ? 'Ver todos' : 'Ocultar'}}</button>
+        <button class="btn ver-todos" (click)="viewMoves = !viewMoves">{{ !viewMoves ? 'Ver todos' : 'Ocultar'}}</button>
         }
-    </div>
-
-    <!-- Modal de Edición -->
-    @if(openEditModal) {
-    <app-edit-movement [idMove]="editId" (editEvent)="toggleEditModal(); updateMovement($event)" />
+    </ul>
+    @if(deleteConfirmation) {
+    <app-confirm-modal [confirmationMessage]='confirmationMessage'
+      (confirmationEvent)="$event ? deleteMovement() : toggleDeleteConfirmation()" />
     }
 
-    <!-- Agregar Movimiento -->
-    <div class="nuevo-movimiento">
-        <h3>Agregar Movimiento</h3>
-        <label for="tipo">Tipo:</label>
-        <select id="tipo" #tipo>
-            <option value="Ingreso">Ingreso</option>
-            <option value="Gasto">Gasto</option>
-        </select>
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" #nombre />
-        <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion" #descripcion />
-        <label for="monto">Monto:</label>
-        <input type="number" id="monto" #monto />
-        <label for="">Rubro</label>
-        <select id="rubro" #rubro>
-            <option selected disabled>Seleccione un rubro</option>
-            @for(cat of categories; track $index) {
-            <option value="{{cat}}">{{cat.charAt(0).toUpperCase() + cat.slice(1)}}</option>
-            }
-        </select>
-        <button class="btn primary"
-            (click)="agregarMovimiento(tipo.value, nombre.value, descripcion.value, +monto.value, rubro.value)">
-            Agregar
-        </button>
-    </div>
+
+  </div>
+
+  <!-- Modal de Edición -->
+  @if(openEditModal) {
+  <app-edit-movement [idMove]="editId" (editEvent)="toggleEditModal(); updateMovement($event)" />
+  }
+
+  <!-- Agregar Movimiento -->
+  <div class="nuevo-movimiento">
+    <h3>Agregar Movimiento</h3>
+    <label for="tipo">Tipo:</label>
+    <select id="tipo" #tipo>
+      <option value="Ingreso">Ingreso</option>
+      <option value="Gasto">Gasto</option>
+    </select>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" #nombre />
+    <label for="descripcion">Descripción:</label>
+    <input type="text" id="descripcion" #descripcion />
+    <label for="monto">Monto:</label>
+    <input type="number" id="monto" #monto />
+    <label for="">Rubro</label>
+    <select id="rubro" #rubro>
+      <option selected disabled>Seleccione un rubro</option>
+      @for(cat of categories; track $index) {
+      <option value="{{cat}}">{{cat.charAt(0).toUpperCase() + cat.slice(1)}}</option>
+      }
+    </select>
+    <button class="btn primary"
+      (click)="agregarMovimiento(tipo.value, nombre.value, descripcion.value, +monto.value, rubro.value)">
+      Agregar
+    </button>
+  </div>
 </div>

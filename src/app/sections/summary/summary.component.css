@@ -1,0 +1,37 @@
+.resumen-mensual {
+    background-color: #e9ecef;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+}
+
+.resumen {
+    display: flex;
+    justify-content: space-around;
+}
+
+.resumen h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: #343a40;
+}
+
+.resumen p {
+    font-size: 1.1em;
+    margin: 8px 0;
+}
+
+.resumen p span {
+    font-weight: bold;
+    color: #28a745;
+}
+
+.resumen p.egresos span {
+    color: #dc3545;
+}
+
+.resumen p.balance.negativo span {
+    color: #dc3545;
+}

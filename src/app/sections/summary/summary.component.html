@@ -1,6 +1,9 @@
-<div class="resumen">
-    <h2>Resumen Mensual</h2>
-    <p>Ingresos: {{ resumen.ingresos.toLocaleString() }}</p>
-    <p>Egresos: {{ resumen.egresos.toLocaleString() }}</p>
-    <p>Balance: {{ resumen.balance.toLocaleString() }}</p>
+<div class="resumen-mensual">
+  <h2>Resumen Mensual</h2>
+  <div class="resumen">
+  <p class="ingresos"><span> + {{ resumen.ingresos.toLocaleString() }}</span></p>
+  <p class="egresos"><span> - {{ resumen.egresos.toLocaleString() }}</span></p>
+  <p class="balance" [class.negativo]="resumen.balance < 0" [class.positivo]="resumen.balance > 0"> <span> = {{
+      resumen.balance.toLocaleString() }}</span></p>
   </div>
+</div>

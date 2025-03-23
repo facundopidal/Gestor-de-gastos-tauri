@@ -1,32 +1,38 @@
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --background-color: #e8e9ea;
-  --text-color: #212529;
-
-}
-
+/* Estilos para el contenedor principal */
 .container {
-  padding: 20px;
+  width: 90%;
   max-width: 800px;
-  margin: 0 auto;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna */
 }
 
-h1,
-h2,
-h3 {
-  margin: 0 0 15px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-/* 
-42898e
-4598aa
- */
+/* Estilos para la información del saldo */
 .saldo-info {
-  background-color: #fff;
-  color: #42898e;
-  padding-left: 6px;
-  box-shadow: 0 2px 4px #42898e47;
+  text-align: center;
   margin-bottom: 20px;
 }
 
+.saldo-info h2 {
+  font-size: 2.5em;
+  color: #28a745; /* Verde para saldo positivo */
+  margin: 10px 0;
+}
+
+/* Estilos para el selector de mes */
+input[type="month"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+}
+
+/* Estilos para el componente de resumen (app-summary) */
+app-summary {
+  display: block; /* Asegura que el componente ocupe todo el ancho */
+}

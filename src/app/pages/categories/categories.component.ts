@@ -14,16 +14,20 @@ import { convertFileSrc } from '@tauri-apps/api/core';
 })
 export class CategoriesComponent implements OnInit {
   private dbService = inject(MovDbService)
-
+  
   categories: string[] = []
   categoryImages: { [key: string]: string } = {}
-
+  
   async ngOnInit() {
     this.dbService.initDatabase().then(async () => {
       this.categories = await this.dbService.getCategoryNames()
       await this.loadCategoryImages() 
       console.log(this.categoryImages)
     }).catch(e => console.error(e))
+  }
+  
+  editCategory(category: string) {
+    
   }
 
   loadCategoryImages() {
