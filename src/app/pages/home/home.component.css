@@ -6,7 +6,6 @@
 
 }
 
-
 .container {
   padding: 20px;
   max-width: 800px;
@@ -29,37 +28,5 @@ h3 {
   padding-left: 6px;
   box-shadow: 0 2px 4px #42898e47;
   margin-bottom: 20px;
-}
-
-.movimientos-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.movimientos ul {
-  list-style: none;
-  padding: 0;
-}
-
-.movimientos li {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #e9ecef;
-  font-family: system-ui, -apple-system;
-}
-
-.movimientos li.ingreso {
-  background-color: #d4edda;
-}
-
-.movimientos li.gasto {
-  background-color: #f8d7da;
-}
-
-.mov {
-  display: flex;
-  justify-content: space-between;
 }
 

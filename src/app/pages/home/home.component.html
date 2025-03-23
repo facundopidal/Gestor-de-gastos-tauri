@@ -3,42 +3,8 @@
         <h2>${{ saldo.toLocaleString('es-ES') }}</h2>
     </div>
 
-    <!-- Sección de Movimientos -->
-    <div class="movimientos">
-        <ul>
-            <fieldset>
-                <div class="movimientos-header">
-                    <h3>Movimientos</h3>
-                    <input type="month" [(ngModel)]="selectedMonth" (change)="setMonth($any($event.target).value)">
-                </div>
-            @for (mov of movements; track $index) {
-                @if($index < 5 || viewMoves) {
-                <li [class.ingreso]="mov.tipo === 'Ingreso'"
-                    [class.gasto]="mov.tipo === 'Gasto'"
-                    title="{{formatDate(mov.fecha!.toString())}}" 
-                    >
-                    <span class="mov"> 
-                        <span>{{ mov.descripcion }}</span> 
-                        <span>{{ mov.tipo === 'Gasto' ? '-' : '+' }} ${{  mov.monto.toLocaleString('es-ES') }} 
-                        </span>
-                    </span>
-                </li>
-            }
-            } @empty {
-                <li>No hay movimientos.</li>
-            }
-
-            
-        </fieldset>
-        </ul>
-
-        @if(movements.length > 5) {
-            <button class="btn" (click)="viewMoves = !viewMoves">{{ !viewMoves ? 'Ver todos' : 'Ocultar'}}</button>
-        }
-    </div>
-
-   
-
+   <input type="month" [(ngModel)]="selectedMonth" (change)="setMonth($any($event.target).value)"/>
+    <app-summary [month]="month" [year]="year" />
 </div>
 
 

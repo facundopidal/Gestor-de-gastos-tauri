@@ -28,7 +28,7 @@ export class SummaryService {
   }
 
   // Inicializa la base de datos y crea la tabla si no existe
-  private async initDatabase() {
+  async initDatabase() {
     this.db = await Database.load('sqlite:movements.db');
     await this.createMonthlySummaryTable();
   }
